@@ -7,11 +7,11 @@ public class Distrito {
 	
 	int []listaDias = new int[500];
 	
-	Distrito(int avenida, int calle) {
+	public Distrito(int avenida, int calle) {
 		
 	}
 	
-	void add(int valor){
+	public void add(int valor){
 		
 	}
 	
