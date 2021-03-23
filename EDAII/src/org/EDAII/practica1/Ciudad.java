@@ -21,7 +21,13 @@ public class Ciudad {
 	private int d2;
 	private int [][] ciudad; 
 	Distrito []distritos = new Distrito[500];
+	
+	/*** Utilizamos arraylist para hacer sort después ya que el ejercicio nos pide los resultados ordenados por dia
+	 * los dias pueden ser duplicados por lo que no podemos usar treeset o treemap
+	 * compareTo en resultados. ¿En caso de que dos días sean iguales hay que ver el distrito más cercano ?
+	 */
 	ArrayList<Resultado> resultados = new ArrayList<Resultado>(); // Luego utilizar collections.sort
+	
 	private static String dir = System.getProperty("user.dir") + File.separator + "src" + File.separator + "practica01"+ File.separator;
 
 
