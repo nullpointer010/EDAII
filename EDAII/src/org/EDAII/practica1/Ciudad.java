@@ -3,6 +3,7 @@ package org.EDAII.practica1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -10,7 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Ciudad {
 	
-	private static Ciudad ciudad;
+	//private static Ciudad ciudad;
 	private int []listaDias;
 	private int calles;
 	private int avenidas;
@@ -18,13 +19,18 @@ public class Ciudad {
 	private int fin;
 	private int d1;
 	private int d2;
+	private int [][] ciudad; 
 	Distrito []distritos = new Distrito[500];
-	Resultado []resultados = new Resultado[500];
+	ArrayList<Resultado> resultados = new ArrayList<Resultado>(); // Luego utilizar collections.sort
 	private static String dir = System.getProperty("user.dir") + File.separator + "src" + File.separator + "practica01"+ File.separator;
 
 
 	Ciudad(String archivo) {
 		
+		/** Probamos con datos estaticos, luego hacemos la lectura del archivo **/
+		this.calles = 500;
+		this.avenidas = 500;
+		ciudad = new int [calles][avenidas];
 	}
 	
 	
@@ -60,6 +66,19 @@ public class Ciudad {
 //
 //	}
 
+	public void RecorrerCiudad() 
+	{
+		//d(4*((m-1) DIV 4), 10*((n-1) DIV 10))
+		// m = calles , n = avenidas
+		for(int n = 0; n < avenidas; n+=10) // El primero será d(0, 0) !En EL ARRAY, teoricamente será d(1,1)
+		{                                   // El segundo será d(4, 1) y así.. 
+			for(int m = 0; m < calles; m+=4) 
+			{
+				// Generar datos distrito
+				// add distrito
+			}
+		}
+	}
 	
 	public String toString() {
 		return null;
@@ -67,21 +86,25 @@ public class Ciudad {
 	}
 	
 	public void FuerzaBruta() {
-			for (Distrito distrito : distritos) {
-				for (int i = 0; i < distrito.toString(); i++) {//tiene que recorrer distrito desde la pos 0 hasta el maximo de la
-																		// matriz d(0,0) a d(2,2) por ejemplo
-					//Obtener el valor de cada posicion mediante el toString
-					//de cada objeto de la clase distrito
-				}
+		for (Distrito distrito : distritos) {
+			for (int i = 0; i < distrito.toString(); i++) {// tiene que recorrer distrito desde la pos 0 hasta el maximo
+															// de la
+															// matriz d(0,0) a d(2,2) por ejemplo
+				// Obtener el valor de cada posicion mediante el toString
+				// de cada objeto de la clase distrito
 			}
 		}
+	}
 
 	
 	public void DyV() {
 		DyV(avenidas,calles, listaDias, inicio, fin);
 	}
 	
-	private int DyV(int avenidas, int calles, int []listaDias , int inicio, int fin){
+	// Con el DyV debemos encontrar el nº maximo de casos de cada distrito en el array de casos.
+	// Creo que debería ir en Distrito.
+	private int DyV(int avenidas, int calles, int []listaDias , int inicio, int fin)
+	{
 		if (inicio==fin) {
 			return inicio;
 		}
