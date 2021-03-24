@@ -19,7 +19,7 @@ public class Resultado implements Comparable<Resultado>
 	
 	public String toString() {
 		
-		String cadena = "(d("+this.distrito.toString()+","+this.dia+","+this.valor;
+		String cadena = "(d("+this.distrito.toString()+","+this.dia+","+this.valor+")";
 		return cadena;
 		
 	}
