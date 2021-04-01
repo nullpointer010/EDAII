@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -34,6 +35,17 @@ public class Ciudad {
 	}
 	
 	
+	private void cargarArchivo(String archivo) {
+		try {
+			load(rutaArchivo);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	public void load(String rutaArchivo) throws FileNotFoundException {
+		distritos = new Distrito[500];
+		Scanner sc = new Scanner(new File(rutaArchivo));
+	}
 	//NO TOCAR--------------------------------------------------------------------
 //	private void cargarArchivo(String archivo) {
 //		JFileChooser file = new JFileChooser();
@@ -98,7 +110,12 @@ public class Ciudad {
 
 	
 	public void DyV() {
-		DyV(avenidas,calles, listaDias, inicio, fin);
+		resultados = new ArrayList<Resultado>();
+		for (Distrito distrito : distritos) {
+			pos= DyV(d.getArray(),O,d.getArray().length);
+			Yres= new Y(d.getNombre(), pos+1, d.getArray[pos]);
+			resultado.add(res);
+		}
 	}
 	
 	// Con el DyV debemos encontrar el nº maximo de casos de cada distrito en el array de casos.
