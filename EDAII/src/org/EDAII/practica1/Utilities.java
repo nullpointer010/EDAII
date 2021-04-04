@@ -66,7 +66,7 @@ public class Utilities {
 		
 	}
 	
-	private void rellenar(Distrito d, int dia, int caso) {
+	public void rellenar(Distrito d, int dia, int caso) {
 		
 		switch (caso) {
 		case 1:

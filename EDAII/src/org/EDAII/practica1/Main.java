@@ -85,7 +85,25 @@ public class Main {
 	}
 
 	private static void generarCiudad() {
-		// TODO Auto-generated method stub
+		int avenidas = leer("Introduce el número de avenidas:", 2, Integer.MAX_VALUE);
+		int calles = leer("Introduce el número de calles:", 2, Integer.MAX_VALUE);
+		int d1 = leer("Introduce el número de avenidas correspondientes a un distrito:", 2, Integer.MAX_VALUE);
+		int d2 = leer("Introduce el número de calles correspondientes a un distrito:", 2, Integer.MAX_VALUE);
+		int dias = leer("Introduce el número de dias sobre los que generar los datos:", 2, Integer.MAX_VALUE);
+		
+		System.out.println("CASOS:");
+		System.out.println("1. Ascendente-Descendente Weidbull");
+		System.out.println("2. Ascendente Weidbull");
+		System.out.println("3. Descendente Weidbull");
+		System.out.println("4. Acendente-Descendente lineal");
+		System.out.println("5. Acendente lineal");
+		System.out.println("6. Descendente lineal");
+		System.out.println("7. Random Weidbull");
+		System.out.println("8. Valor constante");
+		
+		int caso = leer("Introduzca caso",1,8);
+		
+		Ciudad c = new Ciudad(avenidas,calles,d1,d2,dias,caso);
 		
 	}
 
@@ -109,8 +127,7 @@ public class Main {
 			return;
 		}
 
-		
-		int opcion = leer("Seleccione el algoritmo que quiere ejecutar: \n1. Fuerza Bruta \2. Divide y Vencerás\n", 1, files.length);
+		int opcion = leer("Seleccione el algoritmo que quiere ejecutar: \n1. Fuerza Bruta \2. Divide y Vencerás\n", 1, 2);
 		switch (opcion) {
 		case 1: c.FuerzaBruta(); break;
 		case 2: c.DyV(); break;
@@ -118,7 +135,7 @@ public class Main {
 		}
 	}
 
-	private static void cargarCiudad () {
+	private static void cargarCiudad() {
 
 			File[] files = new File(directorio+"practica1tests"+File.separator).listFiles(new FileFilter() {
 				
@@ -133,17 +150,13 @@ public class Main {
 			int opcion = leer("Seleccione el archivo a cargar", 1, files.length);
 
 			try {
-
 				c = new Ciudad (files[opcion-1].getAbsolutePath()); 
 				System.out.println("Archivo \""+files[opcion-1].getName()+"\" cargado correctamente");
 
 			} catch (FileNotFoundException e) { 
-				System.out.println("No fue posible pagar el archivo");
+				System.out.println("No fue posible cargar el archivo");
 			}
 
     	}
-	}
-	
-	
+}	
 
-}

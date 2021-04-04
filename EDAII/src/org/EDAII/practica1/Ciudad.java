@@ -35,6 +35,24 @@ public class Ciudad {
 	}
 	
 	
+	public Ciudad(int avenidas, int calles, int d1, int d2, int dias, int caso) {
+		this.avenidas = avenidas;
+		this.calles = calles;
+		this.d1=d1;
+		this.d2=d2;
+		
+		for (int i = 0; i < (avenidas-1)/d1; i++) {
+			for (int j = 0; j < (calles-1)/d2; j++) {
+				Distrito d = new Distrito(d1-i+1,d2*j+1);
+				Utilities.rellenar(d,dias,caso);
+				this.distritos.add(d);
+			}
+		}
+		
+		
+		}
+
+
 	private void cargarArchivo(String archivo) {
 		try {
 			load(rutaArchivo);
