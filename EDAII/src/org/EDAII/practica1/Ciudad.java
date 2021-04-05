@@ -135,12 +135,14 @@ public class Ciudad {
 				for (int j=1 ; j < distritos[i].numeroDias() + 1; j++){//
 					if (distritos[i].get(u) > distritos[i].get(j)){
 
-						casoMayor = distritos[i].ListaCasos(u); //la lista debería ser protected
+						casoMayor = distritos[i].get(u);
 						dia = u;
 					}
-					else
-						casoMayor = distritos[i].ListaCasos(j);
-					dia = j;
+					else if (distritos[i].get(j) > distritos[i].get(u)){
+						
+						casoMayor = distritos[i].get(j);
+						dia = j;
+					}
 				}
 			}
 
