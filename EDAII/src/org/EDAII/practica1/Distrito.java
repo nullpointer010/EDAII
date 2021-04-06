@@ -9,13 +9,13 @@ public class Distrito {
 	private int calle;
 
 	// Llamamemos a esto lista casos
-	private ArrayList<Integer> listaCasos = new ArrayList<Integer>(365); // En la practica dice que lo analizamos para 1 año (365 dias)
+	private ArrayList<Integer> listaCasos = new ArrayList<Integer>(365); // En la practica dice que lo analizamos para 1 aï¿½o (365 dias)
 
 	/*** Vamos a plantearlo de la siguiente forma:
-	    La posición del array (i+1) (listaCasos.indexOf) nos indicará el número del día y el dato correspondiente a esa posición
-	    nos indicará los casos de ese día. 
-		Los días van de 0 a X que es menor o igual a 365.
-		Así evitaremos guardarlo en la variable.
+	    La posiciï¿½n del array (i+1) (listaCasos.indexOf) nos indicarï¿½ el nï¿½mero del dï¿½a y el dato correspondiente a esa posiciï¿½n
+	    nos indicarï¿½ los casos de ese dï¿½a. 
+		Los dï¿½as van de 0 a X que es menor o igual a 365.
+		Asï¿½ evitaremos guardarlo en la variable.
 	***/
 	public Distrito(int avenida, int calle) 
 	{
@@ -51,7 +51,8 @@ public class Distrito {
 	}
 	
 	public String toString() {
-		return null;
+		
+		return "("+this.avenida+","+this.calle+")";
 		
 	}
 

@@ -10,17 +10,42 @@ public class Resultado implements Comparable<Resultado>
 	
 	public Resultado(Distrito distrito, int dia, int valor){
 		
+		super();
+		this.distrito = distrito;
+		this.dia = dia;
+		this.valor = valor;
+		
 	}
 	
 	public String toString() {
-		return null;
+		
+		String cadena = "(d("+this.distrito.toString()+","+this.dia+","+this.valor+")";
+		return cadena;
 		
 	}
 	
 	@Override
-    public int compareTo(Resultado other)
-    {
+    public int compareTo(Resultado other) {
+
+		/* int aux=0;
+
+		if (this.valor<other.dia){  
+			aux = -1;      
+		}else if (this.valor>other.dia) {   
+			aux = 1;     
+		} else {
+			if (this.valor<other.dia) {  
+				aux = -1;     
+			}else if (this.valor>other.dia) { 
+				aux = 1;   
+			}else {  
+				aux = 0;   
+			}
+		}
+		return aux; */
+		
         return Integer.compare(this.dia, other.dia);
+        
     }
 
 }
