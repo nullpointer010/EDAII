@@ -42,7 +42,7 @@ public class Main {
 		
 	}
 	
-	private static int leer(String mensaje, int min, int max){
+	public static int leer(String mensaje, int min, int max){
 		return 0;
 		
 	}
