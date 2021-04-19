@@ -52,7 +52,7 @@ public class Utilities {
 		}
 	}
 	
-	Ciudad generarCiudad(archivo archivo) {
+	public static void generarCiudad() {
 		int avenidas = leer("Introduce el minimo de avenidad", 2, Integer.MAX_VALUE);
 		int calles = leer("Introduce el minimo de avenidad", 2, Integer.MAX_VALUE);
 		int d1 = leer("Introduce el minimo de avenidad", 2, Integer.MAX_VALUE);
@@ -69,12 +69,51 @@ public class Utilities {
 	public void rellenar(Distrito d, int dia, int caso) {
 		
 		switch (caso) {
-		case 1:
-			
-			break;
+		case 1: break;
+		case 2: break;
+		case 3: break;
+		case 4: break;
+		case 5: break;
 
 		default:
 			break;
 		}
 	}
+	
+	public static void caso1(Distrito d, int dias){
+		for (int i = 0; i <= dias/2; i++) {
+			d.add(i);
+		}
+		for (int i = 0; i < dias/2; i++) {
+			d.add(dias/2-1-i);
+		}
+	}
+	public static void caso2(Distrito d, int dias){
+		for (int i = 0; i < dias; i++) {
+			d.add(dias-i);
+		}
+	}
+	public static void caso3(Distrito d, int dias){
+		for (int i = 0; i < dias; i++) {
+			d.add(i);
+		}
+	}
+	public static void caso4(Distrito d, int dias){
+		for (int i = 0; i <= dias/2; i++) {
+			d.add(i);
+		}
+		for (int i = 0; i < dias/2; i++) {
+			d.add(dias/2-1-i);
+		}
+	}
+	public static void caso5(Distrito d, int dias){
+		for (int i = 0; i <= dias/2; i++) {
+			d.add(i);
+		}
+		for (int i = 0; i < dias/2; i++) {
+			d.add(dias/2-1-i);
+		}
+	}
+	
+		
 }
