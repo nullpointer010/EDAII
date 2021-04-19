@@ -55,5 +55,11 @@ public class Distrito {
 		return "("+this.avenida+","+this.calle+")";
 		
 	}
+	
+	public int[] getListaCasos()
+	{
+		int[] arr = listaCasos.stream().mapToInt(i -> i).toArray();
+		return arr;
+	}
 
 }

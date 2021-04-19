@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -61,11 +63,12 @@ public class Ciudad {
 
 	private void cargarArchivo(String archivo) {
 		try {
-			load(rutaArchivo);
+			load(archivo);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
+	
 	public void load(String rutaArchivo) throws FileNotFoundException {
 		distritos = new Distrito[500];
 		Scanner sc = new Scanner(new File(rutaArchivo));
@@ -106,9 +109,9 @@ public class Ciudad {
 	{
 		//d(4*((m-1) DIV 4), 10*((n-1) DIV 10))
 		// m = calles , n = avenidas
-		for(int n = 0; n < avenidas; n+=10) // El primero serï¿½ d(0, 0) !En EL ARRAY, teoricamente serï¿½ d(1,1)
+		for(int n = 0; n < avenidas; n+=d2) // El primero serï¿½ d(0, 0) !En EL ARRAY, teoricamente serï¿½ d(1,1)
 		{                                   // El segundo serï¿½ d(4, 1) y asï¿½.. 
-			for(int m = 0; m < calles; m+=4) 
+			for(int m = 0; m < calles; m+=d1) 
 			{
 				// Generar datos distrito
 				// add distrito
@@ -204,6 +207,45 @@ public class Ciudad {
 		}else {
 			return der;
 		}
+	}
+	
+	public void DyVMejorado()
+	{
+		int pos = 0;
+		resultados = new ArrayList<Resultado>();
+		Resultado res = null;
+		for (Distrito distrito : distritos) 
+		{
+			pos= DyVMejorado(distrito.getListaCasos(),0,distrito.numeroDias());
+			res= new Resultado(distrito, pos+1, distrito.get(pos));
+			resultados.add(res);
+		}
+		Collections.sort(resultados);
+	}
+
+	// Más optimizado
+	private int DyVMejorado(int []listaDias , int inicio, int fin)
+	{	
+		if(fin - inicio <= 1) // Caso base
+		{
+			if(inicio == fin) return inicio;
+			
+			if(listaDias[inicio] >= listaDias[fin]) {
+				return inicio;
+			}else {
+				return fin;
+			}
+		}
+
+		int mitad = (inicio+fin)/2;
+		if ((listaDias[mitad] > listaDias[mitad-1]) && listaDias[mitad] >listaDias[mitad+1]) {
+			return mitad; //Pequeña opt, ? caso base?
+		}
+		
+		if(listaDias[mitad-1] > listaDias[mitad]) { // Caso recursivo izquierda
+			return DyVMejorado(listaDias,inicio, mitad-1);
+		}
+		return DyVMejorado(listaDias,mitad+1, fin); // Caso recursivo derecha
 	}
 
 	String getResultados(){

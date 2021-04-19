@@ -1,4 +1,5 @@
 package org.EDAII.practica1;
+import java.lang.Comparable;
 
 public class Resultado implements Comparable<Resultado> 
 {	
