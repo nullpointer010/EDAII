@@ -9,13 +9,11 @@ public class Resultado implements Comparable<Resultado>
 	private int dia;
 	private int valor;
 	
-	public Resultado(Distrito distrito, int dia, int valor){
-		
-		super();
+	public Resultado(Distrito distrito, int dia, int valor)
+	{	
 		this.distrito = distrito;
 		this.dia = dia;
-		this.valor = valor;
-		
+		this.valor = valor;	
 	}
 	
 	public String toString() {
