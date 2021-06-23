@@ -1,15 +1,13 @@
 package org.EDAII.practica1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Distrito {
 	
 	private int avenida;
 	private int calle;
+	private String nombre;
 
 	// Llamamemos a esto lista casos
-	private ArrayList<Integer> listaCasos = new ArrayList<Integer>(365); // En la practica dice que lo analizamos para 1 a�o (365 dias)
+	private int [] listaCasos; // En la practica dice que lo analizamos para 1 a�o (365 dias)
 
 	/*** Vamos a plantearlo de la siguiente forma:
 	    La posici�n del array (i+1) (listaCasos.indexOf) nos indicar� el n�mero del d�a y el dato correspondiente a esa posici�n
@@ -17,29 +15,45 @@ public class Distrito {
 		Los d�as van de 0 a X que es menor o igual a 365.
 		As� evitaremos guardarlo en la variable.
 	***/
-	public Distrito(int avenida, int calle) 
+	public Distrito(String nombre, int avenida, int calle, int dias) 
 	{
 		this.calle = calle;
 		this.avenida = avenida;
-		/*for(int i = 0; i < listaCasos.length; i++) {
-			listaCasos[i] = -1;
-		}*/
-		//Arrays.fill(listaCasos, -1);
+		this.nombre = nombre;
+		this.listaCasos = new int[dias];
 	}
 	
-	public void add(int valor)
+	public void rellenarCasos(String[] stringCasos)
 	{
-		listaCasos.add(valor);
+		for(int i = 0;i < stringCasos.length;i++)
+		{
+		    try
+		    {
+		    	String [] casoDia = stringCasos[i].split(",");
+		    	int dia = Integer.parseInt(casoDia[0]);
+		    	int casos = Integer.parseInt(casoDia[1]);
+		    	listaCasos[dia-1] = casos;
+		    }
+		    catch (NumberFormatException nfe)
+		    {
+		        //No hacer nada si esta mal, se represantara con 0 el dia
+		    }
+		}
+	}
+	
+	public void set(int value, int index)
+	{
+		listaCasos[index] = value;
 	}
 	
 	public int get(int index)
 	{
-		return listaCasos.get(index);
+		return listaCasos[index];
 	}
 	
 	public int numeroDias() 
 	{
-		return listaCasos.size();
+		return listaCasos.length-1;
 	}
 	
 	public int[] getDistrito() 
@@ -52,14 +66,28 @@ public class Distrito {
 	
 	public String toString() {
 		
-		return "("+this.avenida+","+this.calle+")";
+		return "("+(this.avenida)+","+(this.calle)+")";
 		
+	}
+	
+	public String stringDistritos() 
+	{
+		String a = nombre + " ";
+		String b = "";
+		
+		for(int i = 0; i < listaCasos.length; i++) 
+		{
+			if(i != 0)
+				b = ";"+(i+1)+","+listaCasos[i];
+			else
+				b = (i+1)+","+listaCasos[i];
+			a += b;
+		}
+		return a;		
 	}
 	
 	public int[] getListaCasos()
 	{
-		int[] arr = listaCasos.stream().mapToInt(i -> i).toArray();
-		return arr;
+		return listaCasos;
 	}
-
 }

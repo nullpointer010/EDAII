@@ -1,87 +1,134 @@
 package org.EDAII.practica1;
 
+import java.awt.HeadlessException;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
+
+import javax.swing.JFileChooser;
 
 public class Main {
 	
-	private static String directorio = System.getProperty("user.dir")
+	private static String directorioPruebas = System.getProperty("user.dir")
 			+File.separator+ "src"
 			+File.separator+ "org"
-			+File.separator+ "practica01"
+			+File.separator+ "EDAII"
+			+File.separator+ "practica1Pruebas"
 			+File.separator;
-			
+	
+	private static String directorioResultados = System.getProperty("user.dir")
+			+File.separator+ "src"
+			+File.separator+ "org"
+			+File.separator+ "EDAII"
+			+File.separator+ "practica1Resultados"
+			+File.separator;
+	
 	private static Scanner sc = new Scanner(System.in);
 	private static Ciudad c;
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		boolean repetir = true;
-		do {
-			menu();
-			int opcion = leer("Seleccione una opción", 1,6);
-			repetir = ejecutar(opcion);
-		} while (repetir);
-		sc.close();
+		int opcion;
+		/**
+		 * IGNORAR ESTAS DOS LINEAS. NO SE LANZABA EL DIALOGO PARA SELECCIONAR EL ARCHIVO
+		 * YA QUE SCANNER LO BLOQUEA AUNQUE SE CIERRE ANTES CON .close()
+		 * ESTA ES UNA SOLUCION SIMPLE; QUE ES CREAR UNA INSTANCIA ANTES
+		 */
+		JFileChooser jfc = new JFileChooser();
+		jfc.setCurrentDirectory(new File(System.getProperty("user.dir")));
 
+		while(repetir) 
+		{
+			menu();
+			opcion = leer("Seleccione una opción", 1,6);
+			repetir = ejecutar(opcion);
+			
+			elegirAlgoritmo();
+			
+			
+			System.out.println("╔═════════════════════════════╗");
+			System.out.println("║            MENU             ║");
+			System.out.println("╠═════════════════════════════╣");
+			System.out.println("║ 1. Mostrar resultados       ║");
+			System.out.println("║ 2. Rendimiento              ║");
+			System.out.println("║ 3. Salir                    ║");
+			System.out.println("╚═════════════════════════════╝");
+			opcion = leer("Seleccione una opción", 1,3);
+			ejecutar2(opcion);
+			
+			repetir = false;
+		}
 	}
 	
-	private static void menu() {
+	private static void menu()
+	{
 		System.out.println("╔═════════════════════════════╗");
 		System.out.println("║            MENU             ║");
 		System.out.println("╠═════════════════════════════╣");
 		System.out.println("║ 1. Cargar ciudad            ║");
-		System.out.println("║ 2. Elegir algoritmo         ║");
-		System.out.println("║ 3. Mostrar resultado        ║");
-		System.out.println("║ 4. Generar ciudad           ║");
-		System.out.println("║ 5. Rendimiento              ║");
-		System.out.println("║ 6. Salir                    ║");
+		System.out.println("║ 2. Generar ciudad           ║");
+		System.out.println("║ 3. Salir                    ║");
 		System.out.println("╚═════════════════════════════╝");
-		
 	}
 	
-	public static int leer(String mensaje, int min, int max){
-		return 0;
-		
+	public static int leer(String mensaje, int min, int max)
+	{
+		System.out.println(mensaje);
+		int opcion = sc.nextInt();
+		return opcion;
 	}
 	
-	private static boolean ejecutar(int opcion) {
-		switch (opcion) {
+	private static boolean ejecutar(int opcion) 
+	{	
+		boolean repetir = true;
+		switch (opcion) 
+		{
 		case 1:
 			cargarCiudad();
 			break;
 		case 2:
-			elegirAlgoritmo();
-			break;
-		case 3:
-			mostrarResultado();
-			break;
-		case 4:
 			generarCiudad();
 			break;
-		case 5:
-			rendimiento();
+		case 3:
+			repetir = false;
 			break;
-		case 6:
-			salir();
-			break;
-		default: System.out.println("Programa finalizado");
+		default: 
+			System.out.println("Programa finalizado");
 			return false;
 		}
-		return true;
+		return repetir;
 	}
 	
-
-	private static void salir() {
-		// TODO Auto-generated method stub
-		
+	private static boolean ejecutar2(int opcion) 
+	{	
+		boolean repetir = true;
+		switch (opcion) 
+		{
+		case 1:
+			try {
+				mostrarResultado();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			break;
+		case 2:
+			rendimiento();
+			break;
+		default: 
+			System.out.println("Programa finalizado");
+			return false;
+		}
+		return repetir;
 	}
 
-	private static void rendimiento() {
-		// TODO Auto-generated method stub
-		
+	private static void rendimiento()
+	{
+		CalcularTiempo rendimiento = new CalcularTiempo(c);
+		rendimiento.ejecutarTiempoDyV();
+		rendimiento.ejecutarTiempoFuerzaBruta();
 	}
 
 	private static void generarCiudad() {
@@ -92,71 +139,125 @@ public class Main {
 		int dias = leer("Introduce el número de dias sobre los que generar los datos:", 2, Integer.MAX_VALUE);
 		
 		System.out.println("CASOS:");
-		System.out.println("1. Ascendente-Descendente Weidbull");
-		System.out.println("2. Ascendente Weidbull");
-		System.out.println("3. Descendente Weidbull");
-		System.out.println("4. Acendente-Descendente lineal");
-		System.out.println("5. Acendente lineal");
-		System.out.println("6. Descendente lineal");
-		System.out.println("7. Random Weidbull");
-		System.out.println("8. Valor constante");
-		
+		System.out.println("╔═════════════════════════════════════╗");
+		System.out.println("║                 CASOS               ║");
+		System.out.println("╠═════════════════════════════════════╣");
+		System.out.println("║ 1. Ascendente-Descendente Weidbull  ║");
+		System.out.println("║ 2. Ascendente Weidbull              ║");
+		System.out.println("║ 3. Descendente Weidbull             ║");
+		System.out.println("║ 4. Acendente-Descendente lineal     ║");
+		System.out.println("║ 5. Acendente lineal                 ║");
+		System.out.println("║ 6. Descendente lineal               ║");
+		System.out.println("║ 7. Random Weidbull                  ║");
+		System.out.println("║ 8. Valor constante                  ║");
+		System.out.println("╚═════════════════════════════════════╝");
+
 		int caso = leer("Introduzca caso",1,8);
 		
-		Ciudad c = new Ciudad(avenidas,calles,d1,d2,dias,caso);
+		c = new Ciudad(avenidas,calles,d1,d2,dias,caso);
 		
 	}
 
-	private static void mostrarResultado() {
-		if (c == null) {
+	private static void mostrarResultado() throws FileNotFoundException 
+	{
+		if (c == null) 
+		{
 			System.out.println("Primero hay que cargar los datos");
 			return;
 		}
-		try {
+		try 
+		{
 			System.out.println(c.getResultados());
+			int opcion = leer("¿Desea guardar los resultados?: \n1. SI\n2. NO", 1,2);
+			if(opcion == 1) 
+			{
+				File file = null;
+				PrintWriter pw;
+				String name = c.toString();
+				file = new File(directorioResultados + File.separator + name + ".txt");
+				try {
+					pw = new PrintWriter(file);
+				} catch (FileNotFoundException e) {
+					throw new FileNotFoundException(e.getMessage());
+				}
+
+				pw.println("@Ciudad");
+				pw.println("n="+ c.getAvenidas());
+				pw.println("m="+ c.getCalles());
+				pw.println("@Datos");
+				pw.println("d1="+ c.getD1());
+				pw.println("d2="+ c.getD2());
+				pw.println("dn="+ c.getNumeroDias());
+				pw.println("@Distritos");
+				
+				for(Distrito d : c.getDistritos()) 
+				{
+					pw.println(d.stringDistritos());
+				}
+				pw.println("@Resultados");
+				pw.println(c.getResultados());
+
+				pw.close();
+				System.out.println("Se ha generado el archivo.");
+			}
 		} catch (RuntimeException e) {
 			System.out.println(e.getMessage());
 		}
-		
 	}
 
-	private static void elegirAlgoritmo() {
-		
-		if (c == null) {
+	private static void elegirAlgoritmo() 
+	{	
+		if (c == null) 
+		{
 			System.out.println("Primero hay que cargar los datos");
 			return;
 		}
-
-		int opcion = leer("Seleccione el algoritmo que quiere ejecutar: \n1. Fuerza Bruta \2. Divide y Vencerás\n", 1, 2);
-		switch (opcion) {
-		case 1: c.FuerzaBruta(); break;
-		case 2: c.DyV(); break;
-		default: break;
+		System.out.println("╔═════════════════════════════╗");
+		System.out.println("║       ALGORITMOS            ║");
+		System.out.println("╠═════════════════════════════╣");
+		System.out.println("║ 1. Fuerza Bruta             ║");
+		System.out.println("║ 2. Divide y vencerás        ║");
+		System.out.println("║ 3. Volver                   ║");
+		System.out.println("╚═════════════════════════════╝");
+		
+		int opcion = leer("Seleccione el algoritmo que quiere ejecutar:", 1, 3);
+		switch (opcion) 
+		{
+			case 1:
+				c.FuerzaBruta(); 
+				break;
+			case 2: 
+				c.DyVMejorado(); 
+				break;
+			
+			default: 
+				break;
 		}
 	}
 
-	private static void cargarCiudad() {
+	private static void cargarCiudad() 
+	{
+		JFileChooser jfc = new JFileChooser();
+		jfc.setCurrentDirectory(new File(directorioPruebas));
+		jfc.setDialogTitle("Escoja el archivo que desee ");
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int returnValue = 0;
+		try {
+			returnValue = jfc.showOpenDialog(null);
+		} catch(HeadlessException  e) {
+			throw new HeadlessException(e.getMessage());
+		}
 
-			File[] files = new File(directorio+"practica1tests"+File.separator).listFiles(new FileFilter() {
-				
-				public boolean accept(File a) {
-					return a.getName().endsWith(".txt");
-				}
-			});
-			for (int i = 0; i < files.length; i++) {
-				System.out.println((i+1)+". "+files[i].getName());
+		if (returnValue == JFileChooser.APPROVE_OPTION) 
+		{
+			if (jfc.getSelectedFile().isFile()) 
+			{
+				System.out.println("Has escogido el archivo con la siguiente ruta " + jfc.getSelectedFile());
+				c = new Ciudad();
+				c.cargarArchivo(jfc.getSelectedFile().toString());
+				System.out.println("Se ha cargado correctamente la ciudad. Ahora ya puede elegir el resto de opciones");
 			}
-			
-			int opcion = leer("Seleccione el archivo a cargar", 1, files.length);
-
-			try {
-				c = new Ciudad (files[opcion-1].getAbsolutePath()); 
-				System.out.println("Archivo \""+files[opcion-1].getName()+"\" cargado correctamente");
-
-			} catch (FileNotFoundException e) { 
-				System.out.println("No fue posible cargar el archivo");
-			}
-
-    	}
+		}
+	}
 }	
 

@@ -3,8 +3,6 @@ import java.lang.Comparable;
 
 public class Resultado implements Comparable<Resultado> 
 {	
-	//private int calle;
-	//private int avenida;
 	Distrito distrito;
 	private int dia;
 	private int valor;
@@ -16,11 +14,10 @@ public class Resultado implements Comparable<Resultado>
 		this.valor = valor;	
 	}
 	
-	public String toString() {
-		
+	public String toString() 
+	{
 		String cadena = "(d("+this.distrito.toString()+","+this.dia+","+this.valor+")";
-		return cadena;
-		
+		return cadena;	
 	}
 	
 	@Override
@@ -42,8 +39,10 @@ public class Resultado implements Comparable<Resultado>
 			}
 		}
 		return aux; */
-		
-        return Integer.compare(this.dia, other.dia);
+		int aux = Integer.compare(this.dia, other.dia);
+		if(aux == 0)
+			aux = Integer.compare(this.valor, other.valor);
+        return aux;
         
     }
 
