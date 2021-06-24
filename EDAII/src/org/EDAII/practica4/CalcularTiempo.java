@@ -26,7 +26,7 @@ public class CalcularTiempo
 			tiempoBacktracking += System.nanoTime() - tI;
 		}
 		
-		System.out.println("Tiempo medio de ejecutarDyV<T>: " + tiempoBacktracking/nExperimentos/1e6 + " ms");
+		System.out.println("Tiempo medio de ejecutar BackTracking: " + tiempoBacktracking/nExperimentos/1e6 + " ms");
 	}
 	
 }
