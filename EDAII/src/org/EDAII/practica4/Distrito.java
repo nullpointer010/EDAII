@@ -15,7 +15,7 @@ public class Distrito implements Comparable<Distrito>{
 
 	@Override
 	public String toString() {
-		return "Objeto [id="+this.id+", peso=" + peso + ", valor=" + valor + "]";
+		return "Distrito [id="+this.id+", peso=" + peso + ", valor=" + valor + "]";
 	}
 
 	@Override

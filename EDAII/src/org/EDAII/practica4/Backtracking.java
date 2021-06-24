@@ -3,29 +3,39 @@ package org.EDAII.practica4;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.EDAII.practica3.CalcularTiempo;
+import org.EDAII.practica3.Ciudad;
+
+
 public class Backtracking {
 	
 	private static ArrayList<Distrito> L1;
 	private static int P;
 
 	public static void main(String[] args) {
-		L1 = new ArrayList<Distrito>();
-		L1.add(new Distrito(76, 138000));
-		L1.add(new Distrito(44, 142000));
-		L1.add(new Distrito(32, 106000));
-		L1.add(new Distrito(9, 84500));
-		P = 120;
-		L1.sort(null);
+//		L1 = new ArrayList<Distrito>();
+//		L1.add(new Distrito(76, 138000));
+//		L1.add(new Distrito(44, 142000));
+//		L1.add(new Distrito(32, 106000));
+//		L1.add(new Distrito(9, 84500));
+//		P = 120;
+		//L1.sort(null);
+		Ciudad c = new Ciudad("C:\\Users\\skip_\\git\\EDAII\\EDAII\\src\\org\\EDAII\\practica4\\datos2.txt");
+		c.setP(120);
 		Resultado s = backtracking();
+		CalcularTiempo t = new CalcularTiempo(c);
+		CalcularTiempo rendimiento = new CalcularTiempo(c);
+		rendimiento.ejecutarTiempoProgramacionDinamica();
 		System.out.println("=============================");
 		System.out.println(s);
+		System.out.println();
 
 	}
 
 	//array enteros
 	//int[] a {nivel, voa, pact, bact}
 	//           0     1     2     3
-	private static Resultado backtracking() {
+	public static Resultado backtracking() {
 		int[] a = {0, Integer.MAX_VALUE, 0, 0};
 		int[] s = new int[L1.size()];
 		Arrays.fill(s, -1);
